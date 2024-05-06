@@ -5,6 +5,7 @@ export default function HomeScreen() {
     return(
         <View className = "bg-red-200 flex-1 py-20">
             <Text className = "text-[37px]">HomeScreen</Text>
+            <Text>dsadsad</Text>
         </View>
     );
 }
