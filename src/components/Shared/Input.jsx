@@ -1,17 +1,27 @@
 import { Text, View, TextInput } from "react-native";
 import React, { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
+import { useSelector, useDispatch } from 'react-redux'
+import { setUserValidationUnput } from '../../redux/userSlice'
 import { TouchableOpacity } from "react-native-gesture-handler";
-export default function Input({item : {title , icon , isSecure = false , secureIcon, type },setFormInfo , formInfo}) {
+export default function Input({item : {title , icon , isSecure = false , secureIcon, type }}) {
     
-    const [isVisible, setIsVisible] = useState(false); 
+    const user = useSelector((state) => state.user);
+    const [isVisible, setIsVisible] = useState(true); 
+    const dispatch = useDispatch();
 
     const handleChangeVisible = () => { 
         setIsVisible(!isVisible);
     }
 
-    const changeFormInfo = (name , value) =>{
-        setFormInfo((prevList)=>({...prevList, [name] : value}))
+    const changeFormInfo = (type , value) =>{
+        //setFormInfo((prevList)=>({...prevList, [name] : value}))
+        dispatch(setUserValidationUnput(
+            {
+                type,
+                value, 
+            }
+        ));
     }
 
     return (
@@ -24,7 +34,7 @@ export default function Input({item : {title , icon , isSecure = false , secureI
                             secureTextEntry={isVisible}
                             placeholder={title}
                             onChangeText={(value)=>{changeFormInfo(type , value)}}
-                            value = {formInfo.type}
+                            value = {user[type]}
                         />
                         <Text className="text-[11px] text-primary absolute -top-[8px] left-[10px] bg-white px-[10px] border-1-[1px] border-r-[1px] border-border">{title}</Text>
                         <TouchableOpacity className="absolute right-[10px] top-[3px]" onPress={handleChangeVisible}>
@@ -42,7 +52,7 @@ export default function Input({item : {title , icon , isSecure = false , secureI
                         <TextInput className="h-full px-[37px] text-[13px]"
                             placeholder={title}
                             onChangeText={(value) => {changeFormInfo(type,value)}}
-                            value={formInfo.type}
+                            value={user[type]}
                         />
                         <Text className="text-[11px] text-primary absolute -top-[8px] left-[10px] bg-white px-[10px] border-1-[1px] border-r-[1px] border-border">{title}</Text>
                     </View>

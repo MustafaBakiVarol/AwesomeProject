@@ -1,18 +1,10 @@
-import React, { useState, useEffect} from 'react';
+import React from 'react';
 import { Text, View, Button, Image, StyleSheet,TouchableOpacity, FlatList } from "react-native";
 import Input from '../Shared/Input'
 import Buttonlar from '../Shared/Buttonlar';
 import { loginForm } from '../../utils/const/AuthForm';
 
 export default function Login({navigation}) {
-
-    const [formInfo , setFormInfo] = useState({
-        email : "",
-        password :"",
-    })
-
-    useEffect(()=>console.log(formInfo),[formInfo])
-
     return (
         
         <View className = "bg-white flex-1 items-center justify-center px-5">
@@ -27,7 +19,7 @@ export default function Login({navigation}) {
                     data = {loginForm}
                     renderItem = {({ item }) => (
                         <View className = "mt-5 w-full">
-                            <Input item = {item} setFormInfo={setFormInfo} formInfo={formInfo}/>
+                            <Input item = {item}/>
                         </View>
                     )}
                     keyExtractor={item => item.id}
