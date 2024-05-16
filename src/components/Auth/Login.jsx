@@ -3,8 +3,11 @@ import { Text, View, Button, Image, StyleSheet,TouchableOpacity, FlatList } from
 import Input from '../Shared/Input'
 import Buttonlar from '../Shared/Buttonlar';
 import { loginForm } from '../../utils/const/AuthForm';
+import {setLoader} from "../../redux/generalSlice";
+import { useDispatch } from "react-redux";
 
 export default function Login({navigation}) {
+    const dispatch = useDispatch();
     return (
         
         <View className = "bg-white flex-1 items-center justify-center px-5">
@@ -25,12 +28,11 @@ export default function Login({navigation}) {
                     keyExtractor={item => item.id}
                 />
             </View>
-
-            <View className = "w-full mt-5">
-                <TouchableOpacity>
-                    <Buttonlar title = {"Giris Yap"}/>
-                </TouchableOpacity>
-            </View>
+            
+            <TouchableOpacity onpress = {() =>{dispatch(setLoader())}} className = "w-full mt-5" >
+                <Buttonlar title = {"Giris Yap"}/>
+            </TouchableOpacity>
+        
 
             <View className = "w-full mt-5 flex-row">
                 <Text className = "text-primary">Hala Bir Hesabiniz Yok Mu? </Text>
